@@ -28,7 +28,7 @@ export default function LoginDialog() {
   return (
   
   <Dialog>
-      <DialogTrigger> 
+      <DialogTrigger className="bg-orange-500 p-2"> 
         Login
       </DialogTrigger>
       <DialogContent>
