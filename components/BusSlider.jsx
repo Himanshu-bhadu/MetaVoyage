@@ -51,7 +51,7 @@ export default function BusSlider() {
   return (
     <div ref={slideRef} className="w-full select-none relative">
       <div className="aspect-w-16 aspect-h-9">
-        <img src={img_flight[currentIndex]} alt="image" className='w-[540px] h-[312px]' />
+        {/* <img src={img_flight[currentIndex]} alt="image" className='w-[540px] h-[312px]' /> */}
 
         <div className="absolute top-1/2 w-[540px] transform -translate-y-1/2 px-3 flex justify-between items-center">
           <button
