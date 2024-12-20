@@ -1,13 +1,8 @@
 import { useSession } from 'next-auth/react';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const { data: session, status } = useSession()
-
-  useState(() => {
-    getUserData(session.user.email)
-  }, [status])
+  const { data: session, status } = useSession();
 
   const getUserData = async (email) => {
     const response = await fetch('/api/user', {
@@ -17,10 +12,16 @@ export default function Home() {
       },
       body: JSON.stringify({ email }),
     });
-  
+
     const result = await response.json();
     return result;
-  };  
+  };
+
+  useEffect(() => {
+    if (status === 'authenticated' && session?.user?.email) {
+      getUserData(session.user.email);
+    }
+  }, [status, session]);
 
   const bookTicket = async (ticketData) => {
     const response = await fetch('/api/book-ticket', {
@@ -30,23 +31,10 @@ export default function Home() {
       },
       body: JSON.stringify(ticketData),
     });
-  
+
     const result = await response.json();
     return result;
   };
-
-  {/*
-  const ticketData = {
-  userId: 1,
-  type: "Flight",
-  from: "Delhi",
-  to: "Mumbai",
-  date: "2024-12-25",
-  time: "14:00", 
-  passengers: 2,
-  paymentInfo: "Paid via Credit Card", 
-  };
-*/}
 
   const travelOptions = {
     Flight: ['From', 'To', 'Date', 'Time', 'Passengers'],
@@ -64,19 +52,17 @@ export default function Home() {
   const [currentOpenTravelOption, setCurrentOpenTravelOption] = useState(null);
   const [currentOpenSellOption, setCurrentOpenSellOption] = useState(null);
 
-  const renderFormFields = (fields) => 
+  const renderFormFields = (fields) =>
     fields.map((field, index) => (
-      <input 
-        key={index} 
-        placeholder={field} 
-        className="p-2 border border-gray-300 rounded mb-2" 
+      <input
+        key={index}
+        placeholder={field}
+        className="p-2 border border-gray-300 rounded mb-2"
       />
     ));
 
   return (
-    <div className='w-full'>
-      
-
+    <div className="w-full">
       <section id="hero" className="text-center py-16 bg-gray-100">
         <h1 className="text-4xl font-bold">Book Your Next Experience</h1>
         <p className="mt-4">Travel, Movies, and Live Shows — All in One Place</p>
@@ -87,8 +73,8 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-8">Travel Booking</h2>
         <div className="flex justify-center flex-wrap space-x-4">
           {Object.keys(travelOptions).map((option) => (
-            <button 
-              key={option} 
+            <button
+              key={option}
               onClick={() => setCurrentOpenTravelOption(currentOpenTravelOption === option ? null : option)}
               className="bg-blue-700 text-white px-6 py-3 rounded mb-4"
             >
@@ -99,7 +85,9 @@ export default function Home() {
         {currentOpenTravelOption && (
           <div className="bg-white p-6 rounded shadow-md mt-6">
             {renderFormFields(travelOptions[currentOpenTravelOption])}
-            <button className="bg-blue-700 text-white px-6 py-2 rounded mt-4">Book {currentOpenTravelOption}</button>
+            <button className="bg-blue-700 text-white px-6 py-2 rounded mt-4">
+              Book {currentOpenTravelOption}
+            </button>
           </div>
         )}
       </section>
@@ -108,8 +96,8 @@ export default function Home() {
         <h2 className="text-3xl font-bold text-center mb-8">Sell Tickets</h2>
         <div className="flex justify-center flex-wrap space-x-4">
           {Object.keys(sellOptions).map((option) => (
-            <button 
-              key={option} 
+            <button
+              key={option}
               onClick={() => setCurrentOpenSellOption(currentOpenSellOption === option ? null : option)}
               className="bg-blue-700 text-white px-6 py-3 rounded mb-4"
             >
@@ -120,7 +108,9 @@ export default function Home() {
         {currentOpenSellOption && (
           <div className="bg-white p-6 rounded shadow-md mt-6">
             {renderFormFields(sellOptions[currentOpenSellOption])}
-            <button className="bg-blue-700 text-white px-6 py-2 rounded mt-4">Sell {currentOpenSellOption}</button>
+            <button className="bg-blue-700 text-white px-6 py-2 rounded mt-4">
+              Sell {currentOpenSellOption}
+            </button>
           </div>
         )}
       </section>

@@ -12,8 +12,10 @@ const page = () => {
   return (
     <div className='font-bold  flex justify-center flex-col'>
       <Nav />
-      {/* <Home /> */}
-      <Intro />
+      
+      {session?
+      <Home />: <Intro />}
+      
     </div>
   )
 }

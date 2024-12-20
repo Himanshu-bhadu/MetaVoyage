@@ -1,11 +1,14 @@
 import LoginDialog from '../app/_components/Login';
 import { useSession } from 'next-auth/react';
 import { Pacifico } from 'next/font/google';
+import { useEffect } from 'react';
 
 const pacifico = Pacifico({
   subsets: ['latin'],
   weight: ['400'],
 });
+
+
 
 const Nav = () => {
   const { data: session, status } = useSession();
@@ -28,7 +31,7 @@ const Nav = () => {
 
   return (
     <div>
-      <header className=" text-white py-4 h-20 backdrop-blur-3xl bg-transparent">
+      <header className=" text-white py-4 h-20 backdrop-blur-3xl bg-[#132E32]">
         <nav className="flex justify-between items-center px-10">
           <div className="title-wrapper flex items-center gap-4">
             <div className={`text-2xl ${pacifico.className} text-yellow-300`}>METAVOYAGE</div>
