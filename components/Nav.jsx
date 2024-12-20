@@ -1,4 +1,3 @@
-import React from 'react';
 import LoginDialog from '../app/_components/Login';
 import { useSession } from 'next-auth/react';
 import { Pacifico } from 'next/font/google';
@@ -9,7 +8,23 @@ const pacifico = Pacifico({
 });
 
 const Nav = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if(status === "authenticated") {
+      addUserToDB(session.user.email)
+    }
+  }, [status])
+
+  const addUserToDB = async (email) => {
+    const response = await fetch('/api/user', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+  };
 
   return (
     <div>

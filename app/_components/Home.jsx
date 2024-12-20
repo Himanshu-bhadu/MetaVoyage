@@ -1,7 +1,53 @@
+import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 
 export default function Home() {
+  const { data: session, status } = useSession()
+
+  useState(() => {
+    getUserData(session.user.email)
+  }, [status])
+
+  const getUserData = async (email) => {
+    const response = await fetch('/api/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+  
+    const result = await response.json();
+    return result;
+  };  
+
+  const bookTicket = async (ticketData) => {
+    const response = await fetch('/api/book-ticket', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(ticketData),
+    });
+  
+    const result = await response.json();
+    return result;
+  };
+
+  {/*
+  const ticketData = {
+  userId: 1,
+  type: "Flight",
+  from: "Delhi",
+  to: "Mumbai",
+  date: "2024-12-25",
+  time: "14:00", 
+  passengers: 2,
+  paymentInfo: "Paid via Credit Card", 
+  };
+*/}
+
   const travelOptions = {
     Flight: ['From', 'To', 'Date', 'Time', 'Passengers'],
     Train: ['From', 'To', 'Date', 'Time', 'Class'],
