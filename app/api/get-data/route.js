@@ -1,23 +1,28 @@
 export async function GET(request) {
   try {
-    const { email } = await request.json();
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get('email');
 
-    if (email) {
-      const user = await prisma.user.findUnique({
-        where: {
-          email: email,
-        },
+    if (!email) {
+      return new Response(JSON.stringify({ error: "Email parameter is required" }), {
+        status: 400,
       });
-
-      if (user) {
-        return new Response(JSON.stringify({ user: user }), { status: 200 });
-      } else {
-        return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
-      }
-    } else {
-      return new Response(JSON.stringify({ error: "Email parameter is required" }), { status: 400 });
     }
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (!user) {
+      return new Response(JSON.stringify({ error: "User not found" }), { status: 404 });
+    }
+
+    return new Response(JSON.stringify({ user }), { status: 200 });
   } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    console.error('Error fetching user data:', error.message);
+    return new Response(
+      JSON.stringify({ error: "An internal server error occurred" }),
+      { status: 500 }
+    );
   }
 }

@@ -20,7 +20,7 @@ export default function LoginDialog() {
   if (session) {
     return (
       <div>
-        <button onClick={() => signOut()}>Logout</button>
+        <button className="flex items-center bg-orange-500 px-4 py-2 text-2xl rounded-l-2xl rounded-r-2xl" onClick={() => signOut()}>Logout</button>
       </div>
     );
   } 
@@ -28,7 +28,7 @@ export default function LoginDialog() {
   return (
   
   <Dialog>
-      <DialogTrigger className="bg-orange-500 px-4 py-2 text-2xl rounded-l-2xl rounded-r-2xl"> 
+      <DialogTrigger className="flex items-center bg-orange-500 px-4 py-2 text-2xl rounded-l-2xl rounded-r-2xl"> 
         Login
       </DialogTrigger>
       <DialogContent>

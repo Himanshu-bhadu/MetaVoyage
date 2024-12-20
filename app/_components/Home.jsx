@@ -1,20 +1,29 @@
+import FlightSlider from '@/components/FlightSlider';
+import Slider from '@/components/slider';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+
 
 export default function Home() {
   const { data: session, status } = useSession();
 
-  const getUserData = async (email) => {
-    const response = await fetch('/api/user', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
-
-    const result = await response.json();
-    return result;
+    const getUserData = async (email) => {
+    try {
+      const response = await fetch(`/api/get-data?email=${encodeURIComponent(email)}`, {
+        method: 'GET',
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Something went wrong');
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error fetching user data:', error.message);
+      throw error;
+    }
   };
 
   useEffect(() => {
@@ -66,30 +75,16 @@ export default function Home() {
       <section id="hero" className="text-center py-16 bg-gray-100">
         <h1 className="text-4xl font-bold">Book Your Next Experience</h1>
         <p className="mt-4">Travel, Movies, and Live Shows — All in One Place</p>
-        <button className="mt-6 bg-blue-700 text-white px-6 py-2 rounded">Get Started</button>
       </section>
 
-      <section id="travel" className="py-16 bg-blue-50 align-center">
+      <section id="travel" className="py-16 bg-blue-50 align-center flex flex-row">
+        <Slider />
         <h2 className="text-3xl font-bold text-center mb-8">Travel Booking</h2>
+        <h3 className="text-3xl font-bold text-center mb-8"></h3>
         <div className="flex justify-center flex-wrap space-x-4">
-          {Object.keys(travelOptions).map((option) => (
-            <button
-              key={option}
-              onClick={() => setCurrentOpenTravelOption(currentOpenTravelOption === option ? null : option)}
-              className="bg-blue-700 text-white px-6 py-3 rounded mb-4"
-            >
-              {option}
-            </button>
-          ))}
+            <button className="bg-blue-700 text-white px-6 py-3 rounded mb-4">Book Now</button>
         </div>
-        {currentOpenTravelOption && (
-          <div className="bg-white p-6 rounded shadow-md mt-6">
-            {renderFormFields(travelOptions[currentOpenTravelOption])}
-            <button className="bg-blue-700 text-white px-6 py-2 rounded mt-4">
-              Book {currentOpenTravelOption}
-            </button>
-          </div>
-        )}
+      
       </section>
 
       <section id="sell" className="py-16 bg-blue-50">

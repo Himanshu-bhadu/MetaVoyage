@@ -31,8 +31,8 @@ const Nav = () => {
 
   return (
     <div>
-      <header className=" text-white py-4 h-20 backdrop-blur-3xl bg-[#132E32]">
-        <nav className="flex justify-between items-center px-10">
+      <header className=" text-white py-4 h-20 backdrop-blur-3xl bg-[#132E32] flex justify-center items-center">
+        <nav className="flex justify-around items-center px-10 w-full">
           <div className="title-wrapper flex items-center gap-4">
             <div className={`text-2xl ${pacifico.className} text-yellow-300`}>METAVOYAGE</div>
           </div>
@@ -44,18 +44,13 @@ const Nav = () => {
                 </a>
               </li>
               <li>
-                <a href="#movies" className="hover:underline">
-                  Movies
-                </a>
-              </li>
-              <li>
                 <a href="#shows" className="hover:underline">
                   Shows
                 </a>
               </li>
               <li>
                 <a href="#sell" className="hover:underline">
-                  Sell
+                  Sell Ticket
                 </a>
               </li>
             </ul>
