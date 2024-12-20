@@ -4,9 +4,12 @@ import LoginDialog from "./Login";
 export default function Nav() {
     return (
         <div>
-            <ul>
+            <ul className="h-screen flex flex-col justify-between gap-4 mr-4">
+                <li>
+                    <Link href='/' >Meta Voyage Logo</Link>
+                </li>
                 <LoginDialog />
-                <li className="flex flex-col">
+                <li>
                     <Link href='/movie' >Movie / Theatre Logo</Link>
                 </li>
                 <li>
