@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import LoginDialog from './Login';
+
 
 export default function Home() {
   const travelOptions = {
@@ -29,18 +29,7 @@ export default function Home() {
 
   return (
     <div className='w-full'>
-      <header className="bg-blue-700 text-white py-4">
-        <nav className="flex justify-between items-center px-4">
-          <div className="text-xl font-bold">METAVOYAGE</div>
-          <ul className="flex space-x-4">
-            <li><a href="#travel" className="hover:underline">Travel Booking</a></li>
-            <li><a href="#movies" className="hover:underline">Movie Tickets</a></li>
-            <li><a href="#shows" className="hover:underline">Show Tickets</a></li>
-            <li><a href="#sell" className="hover:underline">Sell Tickets</a></li>
-          </ul>
-          <LoginDialog />
-        </nav>
-      </header>
+      
 
       <section id="hero" className="text-center py-16 bg-gray-100">
         <h1 className="text-4xl font-bold">Book Your Next Experience</h1>
