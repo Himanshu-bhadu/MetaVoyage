@@ -29,7 +29,7 @@ export default function BusSlider() {
   const startSlider = () => {
     slideInterval = setInterval(() => {
       handleOnNextClick();
-    }, 500);
+    }, 2000);
   };
 
   const pauseSlider = () => {
@@ -37,21 +37,21 @@ export default function BusSlider() {
   };
 
   const handleOnNextClick = () => {
-    count = (count + 1) % img_flight.length;
+    count = (count + 1) % img_bus.length;
     setCurrentIndex(count);
     slideRef.current.classList.add("fade-anim");
   };
   const handleOnPrevClick = () => {
-    const productsLength = img_flight.length;
+    const productsLength = img_bus.length;
     count = (currentIndex + productsLength - 1) % productsLength;
     setCurrentIndex(count);
     slideRef.current.classList.add("fade-anim");
   };
 
   return (
-    <div ref={slideRef} className="w-full select-none relative">
+    <div ref={slideRef} className="w-2/5 select-none relative">
       <div className="aspect-w-16 aspect-h-9">
-        {/* <img src={img_flight[currentIndex]} alt="image" className='w-[540px] h-[312px]' /> */}
+        <img src={img_bus[currentIndex]} alt="image" className='w-[540px] h-[312px]' />
 
         <div className="absolute top-1/2 w-[540px] transform -translate-y-1/2 px-3 flex justify-between items-center">
           <button

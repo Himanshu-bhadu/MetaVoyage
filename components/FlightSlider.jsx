@@ -32,7 +32,7 @@ export default function FlightSlider() {
   const startSlider = () => {
     slideInterval = setInterval(() => {
       handleOnNextClick();
-    }, 1000);
+    }, 2000);
   };
 
   const pauseSlider = () => {
@@ -52,7 +52,7 @@ export default function FlightSlider() {
   };
 
   return (
-    <div ref={slideRef} className="w-full select-none relative">
+    <div ref={slideRef} className="w-2/5 select-none relative">
       <div className="aspect-w-16 aspect-h-9">
         <img src={img_flight[currentIndex]} alt="image" className='w-[540px] h-[312px]' />
 
