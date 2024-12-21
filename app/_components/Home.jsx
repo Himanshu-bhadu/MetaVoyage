@@ -1,5 +1,7 @@
 import FlightSlider from '@/components/FlightSlider';
 import TrainSlider from '@/components/TrainSlider';
+import MoviesSlider from '@/components/MoviesSlider';
+import EventSlider from '@/components/EventsSlider';
 
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -143,7 +145,7 @@ export default function Home() {
     <div className="w-full">
     <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,#176087_0,#0A2239_100%)]">
     </div>
-      <section id="hero" className="text-center py-16">
+      <section id="hero" className="text-center py-16 text-white">
         <h1 className="text-4xl font-bold">Book Your Next Experience</h1>
         <p className="mt-4">Travel, Movies, and Live Shows — All in One Place</p>
       </section>
@@ -156,19 +158,32 @@ export default function Home() {
         </div>
         
       </div>
-      <div id="travel" className="py-16 bg-blue-50 align-center flex flex-row">
+      <div id="travel2" className="py-16 bg-blue-50 align-center flex flex-row">
         <TrainSlider />
         <div className='w-3/5'>
         <Trains trains={trains} />
         </div>
         
       </div>
-      <div id="travel" className="py-16 bg-blue-50 align-center flex flex-row">
+      <div id="travel3" className="py-16 bg-blue-50 align-center flex flex-row">
         <BusSlider />
         <div className='w-3/5'>
         <Buses buses={buses} />
         </div>
-        
+      </div>
+
+      <h1 className="text-5xl font-bold text-center w-full bg-blue-50 pt-5 ">Shows Booking</h1>
+      <div id="Shows" className="py-16 bg-blue-50 align-center flex flex-row">
+        <MoviesSlider />
+        <div className='w-3/5'>
+        <Flights flights={flights} />
+        </div>
+      </div>
+      <div id="Shows" className="py-16 bg-blue-50 align-center flex flex-row">
+        <EventSlider />
+        <div className='w-3/5'>
+        <Flights flights={flights} />
+        </div>
       </div>
 
       <section id="sell" className="py-16 bg-blue-50">
